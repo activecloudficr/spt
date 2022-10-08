@@ -52,6 +52,7 @@ public class UsuarioService implements UserDetailsService {
 
 	public Usuario update(Usuario obj, Long id) {
 		Usuario usuarioCadastrado = this.findById(id);
+		obj.setId(usuarioCadastrado.getId());
 		validEmail(obj.getEmail());
 		usuarioCadastrado.setEmail(obj.getEmail());
 		usuarioCadastrado.setSenha(new BCryptPasswordEncoder().encode(obj.getSenha()));

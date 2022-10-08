@@ -3,10 +3,9 @@ package br.com.ficr.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ficr.entities.Clinica;
 import br.com.ficr.exceptions.AlreadyExistsException;
@@ -32,14 +31,17 @@ public class ClinicaService {
         return clinicaRepository.save(obj);
     }
 
+    @Transactional(readOnly = true)
     public List<Clinica> findAll() {
         return clinicaRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Clinica> findAllByNome(String nome) {
         return clinicaRepository.findByNomeContainingIgnoreCase(nome);
     }
 
+    @Transactional(readOnly = true)
     public Clinica findById(Long id) {
         Optional<Clinica> optional = clinicaRepository.findById(id);
         if (optional.isEmpty()) {
@@ -50,6 +52,7 @@ public class ClinicaService {
 
     public Clinica update(Clinica obj, Long id) {
         Clinica clinicaCadastrada = this.findById(id);
+        obj.setId(clinicaCadastrada.getId());
         validUpdate(obj);
         updateClinica(obj, clinicaCadastrada);
         return clinicaCadastrada;
@@ -66,6 +69,7 @@ public class ClinicaService {
         clinicaCadastrada.getEnderecoClinica().setUf(obj.getEnderecoClinica().getUf());
     }
 
+    @Transactional(readOnly = true)
     public void validUpdate(Clinica obj) {
         Optional<Clinica> clinicaCadastrada = clinicaRepository.findByNomeIgnoreCase(obj.getNome());
         if (clinicaCadastrada.isPresent() && obj.getId() != clinicaCadastrada.get().getId()) {
