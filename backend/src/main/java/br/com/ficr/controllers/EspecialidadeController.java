@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -62,9 +63,9 @@ public class EspecialidadeController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/nome/{nome}")
+    @GetMapping("/search")
     @PreAuthorize(HAS_ANY_AUTHORITY_ADMIN_MEDICO)
-    public ResponseEntity<List<ResponseEspecialidadeDTO>> findAllByNome(@PathVariable String nome) {
+    public ResponseEntity<List<ResponseEspecialidadeDTO>> findAllByNome(@RequestParam String nome) {
         List<ResponseEspecialidadeDTO> response = especialidadeService.findAllByNome(nome).stream().map(EspecialidadeMapper::fromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
