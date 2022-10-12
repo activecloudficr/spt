@@ -5,25 +5,25 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.ficr.filter.AuthenticationFilter;
 import br.com.ficr.services.AuthService;
 import br.com.ficr.services.UsuarioService;
 
-@SuppressWarnings("deprecation")
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -32,28 +32,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private AuthService authService;
 
 	@Bean
-	@Override
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioService).passwordEncoder(new BCryptPasswordEncoder());
+	@Bean
+	WebSecurityCustomizer webSecurityCustomizer() {
+		return web -> web.ignoring().antMatchers();
 	}
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		super.configure(web);
-	}
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http, AuthService authService,
+			UsuarioService usuarioService) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/spt/auth").permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/spt/usuarios").permitAll().anyRequest().authenticated().and().csrf()
 				.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilterBefore(new AuthenticationFilter(authService, usuarioService),
 						UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
