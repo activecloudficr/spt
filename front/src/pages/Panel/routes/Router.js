@@ -9,7 +9,7 @@ const RouterPanel = () => {
       <Routes>
         <Route path="SignIn" element={<SignIn />} />
         <Route path="SignUp" element={<SignUp />} />
-        <Route path="Home" element={<HomePacient />} />
+        <Route path="/" element={<HomePacient />} />
         <Route path="*" element={<div />} />
       </Routes>
     </div>

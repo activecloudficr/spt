@@ -25,9 +25,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-
-
-
+import HomeIcon from '@mui/icons-material/Home';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import TaskIcon from '@mui/icons-material/Task';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import Consultas from './Consultas/Consultas';
 
 const drawerWidth = 240;
 
@@ -100,6 +102,7 @@ export default function HomePacient() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [page, setPage] = React.useState('Consultas');
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
@@ -179,8 +182,8 @@ export default function HomePacient() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {['Consultas', 'Agendamento', 'Diagnosticos', 'Historico'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block', background: page === text && "rgba(84, 84, 84, 0.15)", }} onClick={() => setPage(text)}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -195,44 +198,24 @@ export default function HomePacient() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index === 0 && <HomeIcon />}
+                  {index === 1 && <EventNoteIcon />}
+                  {index === 2 && <ContentPasteSearchIcon />}
+                  {index === 3 && <TaskIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={text} sx={{ display: open ? 'block' : 'none' }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        </Typography>
+        {page === 'Consultas' && <Consultas />}
+        {/* {page === 'Agendamento' && <Agendamento />} */}
+        {/* {page === 'Diagnosticos' && <Diagnosticos />} */}
+        {/* {page === 'Historico' && <Historico />} */}
       </Box>
     </Box>
   );
