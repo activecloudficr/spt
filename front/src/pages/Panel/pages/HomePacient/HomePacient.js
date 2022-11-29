@@ -30,6 +30,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import TaskIcon from '@mui/icons-material/Task';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import Consultas from './Consultas/Consultas';
+import Agendamento from './Agendamento/Agendamento';
 
 const drawerWidth = 240;
 
@@ -213,7 +214,7 @@ export default function HomePacient() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {page === 'Consultas' && <Consultas />}
-        {/* {page === 'Agendamento' && <Agendamento />} */}
+        {page === 'Agendamento' && <Agendamento />}
         {/* {page === 'Diagnosticos' && <Diagnosticos />} */}
         {/* {page === 'Historico' && <Historico />} */}
       </Box>
