@@ -1,28 +1,26 @@
-import * as S from './Consultas.styles';
-import Modal from '../../../components/ModalLink/Modal';
+import * as S from './Historico.styles';
+import Modal from '../../../components/Modal/Modal';
 import { useState } from 'react';
-
-
-const Consultas = () => {
+const Historico = () => {
 
     const [open, setOpen] = useState(false);
 
     const consutsList = [
         {
             id: 1,
-            title: "Consulta 1",
-            date: "10/12/2022",
+            title: "Atendimento Clínico",
+            date: "10/11/2022",
             time: "10:00",
             doctor: "Dr. João",
-            status: "AGENDADO"
+            status: "FINALIZADO",
         },
         {
             id: 2,
             title: "Consulta 2",
-            date: "20/12/2022",
+            date: "09/10/2022",
             time: "10:00",
             doctor: "Dr. João",
-            status: "AGENDADO"
+            status: "CANCELADO"
         },
     ]
 
@@ -39,11 +37,10 @@ const Consultas = () => {
 
                 <S.StatusBox className="Status">
                     <S.TitleBoxItem>STATUS</S.TitleBoxItem>
-                    <S.ParagraphStatus>{props.status}</S.ParagraphStatus>
+                    <S.ParagraphStatus status={props.status}>{props.status}</S.ParagraphStatus>
                 </S.StatusBox>
 
-                <S.ButtonLink onClick={() => setOpen(!open)}>Link da Consulta</S.ButtonLink>
-                <S.ButtonLinkCancel>Cancelar</S.ButtonLinkCancel>
+                <S.ButtonLink onClick={() => setOpen(!open)} disabled={props.status === 'CANCELADO' ? true : false} >Diagnóstico</S.ButtonLink>
             </S.Box>
         )
     }
@@ -51,7 +48,7 @@ const Consultas = () => {
 
     return (
         <div>
-            <h1>Consultas</h1>
+            <h1>Histórico</h1>
             <S.Container className="consultas">
                 {consutsList.map((item) => {
                     return (
@@ -76,4 +73,4 @@ const Consultas = () => {
     );
 };
 
-export default Consultas;
+export default Historico;

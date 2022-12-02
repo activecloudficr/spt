@@ -35,25 +35,15 @@ export const ButtonLink = styled.button`
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
-    margin-bottom: 15px;
     text-transform: uppercase;
     font-weight: bold;
-
-`
-export const ButtonLinkCancel = styled.button`
-    background-color: ${theme.colors.red};
-    color: ${theme.colors.white};
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    font-size: 10px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: bold;
+    &:disabled {
+        background-color: ${theme.colors.gray};
+    }
 `
 
 export const ParagraphStatus = styled.p`
-    color: ${props => props.status === 'AGENDADO' ?  "#0083FC" : theme.colors.green};
+    color: ${props => props.status === 'FINALIZADO' ?  theme.colors.green : theme.colors.red};
     font-size: 14px;
     font-weight: bold;
 `

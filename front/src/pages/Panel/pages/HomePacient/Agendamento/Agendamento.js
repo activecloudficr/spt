@@ -67,7 +67,7 @@ const Agendamento = () => {
                 <FormControl onChange={handleChange}>
                     <S.RadioGroupStylized
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
+                        defaultValue="remote"
                         name="radio-buttons-group"
 
                     >

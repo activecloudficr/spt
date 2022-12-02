@@ -15,8 +15,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { theme as styledTheme} from '../../../../assets/styles/Theme';
 import * as S from './HomePacient.styles';
 import Logo from '../../../../assets/imgs/Logo.png';
@@ -28,9 +26,12 @@ import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import TaskIcon from '@mui/icons-material/Task';
-import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import Consultas from './Consultas/Consultas';
 import Agendamento from './Agendamento/Agendamento';
+import Historico from './Historico/Historico';
+import { useNavigate } from 'react-router-dom';
+import { goToSignIn } from "../../../Panel/routes/Coordinator";
+
 
 const drawerWidth = 240;
 
@@ -101,10 +102,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function HomePacient() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [page, setPage] = React.useState('Consultas');
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const settings = ['Perfil', 'Counta', 'Sair'];
 
 
   const handleOpenUserMenu = (event) => {
@@ -164,9 +166,9 @@ export default function HomePacient() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {settings.map((setting, index) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography onClick={ () => index === 2 && goToSignIn(navigate)}textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -183,7 +185,7 @@ export default function HomePacient() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Consultas', 'Agendamento', 'Diagnosticos', 'Historico'].map((text, index) => (
+          {['Consultas', 'Agendamento', 'Historico'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block', background: page === text && "rgba(84, 84, 84, 0.15)", }} onClick={() => setPage(text)}>
               <ListItemButton
                 sx={{
@@ -201,8 +203,7 @@ export default function HomePacient() {
                 >
                   {index === 0 && <HomeIcon />}
                   {index === 1 && <EventNoteIcon />}
-                  {index === 2 && <ContentPasteSearchIcon />}
-                  {index === 3 && <TaskIcon />}
+                  {index === 2 && <TaskIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ display: open ? 'block' : 'none' }} />
               </ListItemButton>
@@ -215,8 +216,7 @@ export default function HomePacient() {
         <DrawerHeader />
         {page === 'Consultas' && <Consultas />}
         {page === 'Agendamento' && <Agendamento />}
-        {/* {page === 'Diagnosticos' && <Diagnosticos />} */}
-        {/* {page === 'Historico' && <Historico />} */}
+        {page === 'Historico' && <Historico />}
       </Box>
     </Box>
   );
