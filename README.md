@@ -30,7 +30,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 >Autor: José Orlando Ferreira do Nascimento Filho – jose.ofilho@a.ficr.edu.br
 
->Autor: Jefferson Lovis de Araújo Albuquerque – jefferson.araujo@a.ficr.edu.br
+>Autor: Jefferson Lovis Victor de Araújo Albuquerque – jefferson.araujo@a.ficr.edu.br
 
 >Autor: Pedro Henrique da Silva – pedrohenrique.hsilva@a.ficr.edu.br
 
