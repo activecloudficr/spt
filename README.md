@@ -11,7 +11,7 @@ Repositório com o projeto Saúde Para Todos desenvolvido pela equipe Active Clo
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 
- 1. [TypeScript](https://www.typescriptlang.org/)
+ 1. [JavaScript https://www.javascript.com/](https://www.javascript.com/)
  2. [Java](https://www.java.com/pt-BR/)
  3. [ReactJs](https://reactjs.org/)
  4. [SpringBoot](https://spring.io/projects/spring-boot)
