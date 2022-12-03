@@ -32,19 +32,20 @@ public class SecurityConfiguration {
 	private AuthService authService;
 
 	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() {
+	public WebSecurityCustomizer webSecurityCustomizer() {
 		return web -> web.ignoring().antMatchers();
 	}
 
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http, AuthService authService,
+	public SecurityFilterChain filterChain(HttpSecurity http, AuthService authService,
 			UsuarioService usuarioService) throws Exception {
+
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/spt/auth").permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/spt/usuarios").permitAll().anyRequest().authenticated().and().csrf()
 				.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -54,7 +55,7 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
