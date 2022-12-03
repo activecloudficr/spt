@@ -47,6 +47,7 @@ export const ContainerInfos = styled.div`
 export const BoxInfos = styled.div`
     width: 218px;
     height: 245px;
+    overflow: hidden;
 
     background: ${theme.colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

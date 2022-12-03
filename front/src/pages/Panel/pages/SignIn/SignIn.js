@@ -8,12 +8,27 @@ import { goToSignUp, backPage } from "../../routes/Coordinator";
 
 const SignIn = () => {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, watch, setError, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        console.log(data);
-        reset();
+        const body = {
+            email: watch("email"),
+            password: watch("password")
+        }
+
+        if (body.email === "medic@gmail.com" && body.password === "123456") {
+            navigate("/painelMedico/");
+        }
+
+        if (body.email === "pacient@gmail.com" && body.password === "123456") {
+            navigate("/painel/");
+        }
+
+        // CRIAR ERROR MESSAGE NO FORMATSTATE ERRORS
+        // error
+        setError("email", { required: "Email inválido" });
+        setError("password", { required: "Senha inválida" });
     }
 
     return (

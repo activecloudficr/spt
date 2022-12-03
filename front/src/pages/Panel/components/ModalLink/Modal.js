@@ -31,7 +31,7 @@ export default function KeepMountedModal({open, setOpen,}) {
       >
         <Box sx={style}>
           <Typography textAlign="center" id="keep-mounted-modal-title" variant="h6" component="h2">
-            Diagnóstico
+            Esse é seu link
           </Typography>
           <Typography textAlign='center'>
             LINK: l1nq.com/l3bBt

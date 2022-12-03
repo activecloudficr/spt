@@ -1,5 +1,7 @@
 import CentralImg from '../../../../assets/imgs/CentralImg.png';
 import * as S from './SiteInfos.styles';
+import img1 from '../../../../assets/imgs/img1.webp';
+import img2 from '../../../../assets/imgs/img2.jpg';
 
 const SiteInfos = () => {
     return (
@@ -11,9 +13,11 @@ const SiteInfos = () => {
 
                     <S.ContainerInfos>
                         <S.BoxInfos>
+                            <img src={img1} alt="img1" style={{ width: '218px', height: '245px' }} />
                         </S.BoxInfos>
 
                         <S.BoxInfos>
+                            <img src={img2} alt="img1" style={{ width: '218px', height: '245px' }} />
                         </S.BoxInfos>
 
                     </S.ContainerInfos>

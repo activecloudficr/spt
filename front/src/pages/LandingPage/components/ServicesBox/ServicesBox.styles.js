@@ -33,7 +33,11 @@ export const ContainerBox = styled.div`
 
 export const Box = styled.div`
     width: 100%;
-    height: 185px;
+    height: 220px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background: ${theme.colors.white};
     box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.25);
